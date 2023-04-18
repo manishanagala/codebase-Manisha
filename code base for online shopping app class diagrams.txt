@@ -1,0 +1,75 @@
+public class Product {
+    private String name;
+    private double price;
+    private int quantity;
+
+    public Product(String name, double price, int quantity) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+}
+
+public class ShoppingCart {
+    private ArrayList<Product> cart;
+
+    public ShoppingCart() {
+        cart = new ArrayList<Product>();
+    }
+
+    public void addItem(Product item) {
+        cart.add(item);
+    }
+
+    public void removeItem(Product item) {
+        cart.remove(item);
+    }
+
+    public void updateQuantity(Product item, int quantity) {
+        for (Product p : cart) {
+            if (p.getName().equals(item.getName())) {
+                p.setQuantity(quantity);
+                return;
+            }
+        }
+    }
+
+    public double calculateTotal() {
+        double total = 0;
+        for (Product p : cart) {
+            total += p.getPrice() * p.getQuantity();
+        }
+        return total;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Product p1 = new Product("iPhone", 999.99, 1);
+        Product p2 = new Product("Samsung Galaxy", 799.99, 1);
+        ShoppingCart cart = new ShoppingCart();
+        cart.addItem(p1);
+        cart.addItem(p2);
+        cart.updateQuantity(p1, 2);
+        cart.removeItem(p2);
+        double total = cart.calculateTotal();
+        System.out.println("Total: $" + total);
+    }
+}
+
